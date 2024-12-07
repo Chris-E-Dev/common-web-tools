@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Hub</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f7f9fc;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .search-bar {
+            flex: 1;
+            margin: 0 1.5rem;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Main content */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            color: inherit;
+        }
+
+        .category:hover {
+            transform: scale(1.03);
+        }
+
+        .category h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #007bff;
+            text-align: center;
+        }
+
+        .tool-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .tool-card {
+            background-color: #f1f3f5;
+            padding: 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .tool-card:hover {
+            background-color: #e2e6ea;
+        }
+
+        .tool-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+
+        .tool-card p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem 0;
+            background-color: #ffffff;
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">Tool Hub</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for tools...">
+        </div>
+        <div class="user-profile">Profile</div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Welcome to my common web tool hub</h1>
+            <p>All Your Essential Tools in One Place</p>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories">
+            
+            <!-- Converter tools -->
+            <div class="category">
+                <h2>Converter tools</h2>
+                <div class="tool-list">
+                    <a href="./Base64/converter.html" class="tool-card">
+                        <h3>Base64-Konverter</h3>
+                        <p>Konvertiert Base64 nach Text und umgekehrt..</p>
+                    </a>
+                    <a href="./JWT/JwtDecoder.html" class="tool-card">
+                        <h3>JWT Dekoder</h3>
+                        <p>Dekodiert ein JSON Web Token (JWT) und zeigt dessen Inhalt.</p>
+                    </a>
+                    <a href="./JsonFlat/JsonFlat.html" class="tool-card">
+                        <h3>JSON Flattener</h3>
+                        <p>Flattening eines JSON-Objekts..</p>
+                    </a>
+                    <a href="./DateTime/DateTimeConverter.html" class="tool-card">
+                        <h3>Date time converter</h3>
+                        <p>Milliseconds in lesbare Werte umwandeln</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tools -->
+            <div class="category">
+                <h2>Tools</h2>
+                <div class="tool-list">
+                    <a href="JsonEditor/Table/JsonTableEditor.html" class="tool-card">
+                        <h3>appsettings.json - Editor</h3>
+                        <p>Editieren der zentralen appsettings.json.</p>
+                    </a>
+                    <a href="debugger.html" class="tool-card">
+                        <h3>log4net.xml - Editor</h3>
+                        <p>Editieren der Logging-Konfiguration.</p>
+                    </a>
+                    <a href="version-control.html" class="tool-card">
+                        <h3>web.config</h3>
+                        <p>Editieren der web.config.</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Design Tools -->
+            <div class="category">
+                <h2>Design Tools</h2>
+                <div class="tool-list">
+                    <a href="graphic-editor.html" class="tool-card">
+                        <h3>Graphic Editor</h3>
+                        <p>Create stunning visuals and graphics.</p>
+                    </a>
+                    <a href="mockup-creator.html" class="tool-card">
+                        <h3>Mockup Creator</h3>
+                        <p>Design mockups and wireframes.</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Analytics Tools -->
+            <div class="category">
+                <h2>Analytics Tools</h2>
+                <div class="tool-list">
+                    <a href="data-analysis.html" class="tool-card">
+                        <h3>Data Analysis</h3>
+                        <p>Analyze and interpret data.</p>
+                    </a>
+                    <a href="report-generator.html" class="tool-card">
+                        <h3>Report Generator</h3>
+                        <p>Generate reports for insights and trends.</p>
+                    </a>
+                </div>
+            </div>
+            
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Tool Hub | <a href="/PrivacyPolicy.html">Privacy Policy</a> | <a href="/TermsOfService.html">Terms of Service</a></p>
+    </footer>
+
+</body>
+</html>
