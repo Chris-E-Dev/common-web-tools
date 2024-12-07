@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT Decoder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        textarea, pre {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            resize: vertical;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .section {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>JWT Decoder</h2>
+    <textarea id="jwtInput" rows="4" placeholder="Paste your JWT here..."></textarea>
+    <button class="button" onclick="decodeJWT()">Decode JWT</button>
+
+    <div class="section" id="headerSection">
+        <h3>Header</h3>
+        <pre id="headerOutput"></pre>
+    </div>
+
+    <div class="section" id="payloadSection">
+        <h3>Payload</h3>
+        <pre id="payloadOutput"></pre>
+    </div>
+
+    <div class="section" id="signatureSection">
+        <h3>Signature</h3>
+        <pre id="signatureOutput"></pre>
+    </div>
+</div>
+
+<script>
+    function decodeBase64Url(base64Url) {
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        let decodedData = atob(base64);
+        return decodedData;
+    }
+
+    function decodeJWT() {
+        const jwtInput = document.getElementById("jwtInput").value.trim();
+        const parts = jwtInput.split('.');
+
+        if (parts.length !== 3) {
+            alert("Invalid JWT. Make sure it has three parts separated by dots.");
+            return;
+        }
+
+        try {
+            const header = JSON.parse(decodeBase64Url(parts[0]));
+            const payload = JSON.parse(decodeBase64Url(parts[1]));
+            const signature = parts[2];
+
+            document.getElementById("headerOutput").textContent = JSON.stringify(header, null, 2);
+            document.getElementById("payloadOutput").textContent = JSON.stringify(payload, null, 2);
+            document.getElementById("signatureOutput").textContent = signature;
+        } catch (error) {
+            alert("Failed to decode JWT. Please ensure it's correctly formatted.");
+            console.error(error);
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .result {
+            margin-top: 15px;
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Base64 Converter</h2>
+    <textarea id="inputText" placeholder="Enter text or Base64 string here..."></textarea>
+    <button onclick="convertBase64()">Convert</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function convertBase64() {
+        const inputText = document.getElementById('inputText').value;
+        let result;
+        try {
+            // Try decoding base64
+            result = atob(inputText);
+        } catch (e) {
+            // If decoding fails, assume the input is plain text and encode it
+            result = btoa(inputText);
+        }
+        document.getElementById('result').innerText = result;
+    }
+</script>
+
+</body>
+</html>

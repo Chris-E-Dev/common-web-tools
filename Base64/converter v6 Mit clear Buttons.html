@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 90vw;
+            max-width: 1400px;
+            height: 80vh;
+        }
+
+        .textarea-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            margin: 0 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            resize: none;
+        }
+
+        .label-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .clear-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .clear-btn:hover {
+            background-color: #c82333;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-left: -10px; /* Adjust for proper alignment */
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 50px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .arrow {
+            font-size: 20px;
+        }
+
+        .validation-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .validate-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 120px;
+        }
+
+        .validate-btn:hover {
+            background-color: #0069d9;
+        }
+
+        .validation-result {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .validation-result.valid {
+            color: green;
+        }
+
+        .validation-result.invalid {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="textarea-container">
+        <div class="label-container">
+            <label for="base64Text">Base64</label>
+            <button class="clear-btn" onclick="clearText('base64Text')">Clear</button>
+        </div>
+        <textarea id="base64Text" placeholder="Base64"></textarea>
+    </div>
+
+    <div class="button-container">
+        <button onclick="convertToText()"><span class="arrow">→</span></button>
+        <button onclick="convertToBase64()"><span class="arrow">←</span></button>
+    </div>
+
+    <div class="textarea-container">
+        <div class="label-container">
+            <label for="plainText">Plain text</label>
+            <button class="clear-btn" onclick="clearText('plainText')">Clear</button>
+        </div>
+		<div class="validation-buttons">
+            <button class="validate-btn" onclick="validateJSON()">Validate JSON</button>
+            <button class="validate-btn" onclick="validateXML()">Validate XML</button>
+        </div>
+        <textarea id="plainText" placeholder="Plain text"></textarea>
+        <div class="validation-result" id="validationResult"></div>
+    </div>
+</div>
+
+<script>
+    function convertToText() {
+        const base64Text = document.getElementById('base64Text').value;
+        try {
+            const plainText = decodeURIComponent(escape(atob(base64Text)));
+            document.getElementById('plainText').value = plainText;
+        } catch (e) {
+            document.getElementById('validationResult').innerText = 'Invalid Base64 string!';
+            document.getElementById('validationResult').classList.add('invalid');
+            document.getElementById('validationResult').classList.remove('valid');
+        }
+    }
+
+    function convertToBase64() {
+        const plainText = document.getElementById('plainText').value;
+        const base64Text = btoa(unescape(encodeURIComponent(plainText)));
+        document.getElementById('base64Text').value = base64Text;
+    }
+
+    function validateJSON() {
+        const plainText = document.getElementById('plainText').value;
+        const validationResult = document.getElementById('validationResult');
+        try {
+            JSON.parse(plainText);
+            validationResult.innerText = 'Valid JSON!';
+            validationResult.classList.add('valid');
+            validationResult.classList.remove('invalid');
+        } catch (e) {
+            validationResult.innerText = 'Invalid JSON!';
+            validationResult.classList.add('invalid');
+            validationResult.classList.remove('valid');
+        }
+    }
+
+    function validateXML() {
+        const plainText = document.getElementById('plainText').value;
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(plainText, "application/xml");
+        const validationResult = document.getElementById('validationResult');
+        const isValidXML = !xmlDoc.getElementsByTagName("parsererror").length;
+        if (isValidXML) {
+            validationResult.innerText = 'Valid XML!';
+            validationResult.classList.add('valid');
+            validationResult.classList.remove('invalid');
+        } else {
+            validationResult.innerText = 'Invalid XML!';
+            validationResult.classList.add('invalid');
+            validationResult.classList.remove('valid');
+        }
+    }
+
+    function clearText(elementId) {
+        document.getElementById(elementId).value = '';
+        document.getElementById('validationResult').innerText = ''; // Clear validation message when text is cleared
+    }
+</script>
+
+</body>
+</html>

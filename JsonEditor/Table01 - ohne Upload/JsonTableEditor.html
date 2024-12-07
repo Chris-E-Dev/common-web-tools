@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Editor</title>
+  <link rel="stylesheet" href="JsonTableEditor.css">
+</head>
+<body>
+  <div id="app">
+    <h1>JSON Editor</h1>
+    <div class="json-editor">
+      <table id="json-table">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="json-table-body"></tbody>
+        <tfoot>
+          <tr>
+            <td><input type="text" id="new-key" placeholder="New key"></td>
+            <td><input type="text" id="new-value" placeholder="New value"></td>
+            <td><button id="add-btn">Add</button></td>
+          </tr>
+        </tfoot>
+      </table>
+      <button id="save-btn">Save Changes</button>
+      <p id="error-message" class="error"></p>
+    </div>
+  </div>
+  <script src="JsonTableEditor.js"></script>
+</body>
+</html>

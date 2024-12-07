@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Hub</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f7f9fc;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .search-bar {
+            flex: 1;
+            margin: 0 1.5rem;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Main content */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .category:hover {
+            transform: scale(1.03);
+        }
+
+        .category h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #007bff;
+            text-align: center;
+        }
+
+        .tool-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .tool-card {
+            background-color: #f1f3f5;
+            padding: 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .tool-card:hover {
+            background-color: #e2e6ea;
+        }
+
+        .tool-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+
+        .tool-card p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem 0;
+            background-color: #ffffff;
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">Tool Hub</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for tools...">
+        </div>
+        <div class="user-profile">Profile</div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Welcome to Your Tool Hub</h1>
+            <p>All Your Essential Tools in One Place</p>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories">
+            
+            <!-- Productivity Tools -->
+            <a href="productivity.html" class="category">
+                <h2>Productivity Tools</h2>
+                <div class="tool-list">
+                    <a href="task-manager.html" class="tool-card">
+                        <h3>Task Manager</h3>
+                        <p>Organize tasks and manage deadlines efficiently.</p>
+                    </a>
+                    <a href="calendar.html" class="tool-card">
+                        <h3>Calendar</h3>
+                        <p>Schedule meetings and important dates.</p>
+                    </a>
+                    <a href="notes.html" class="tool-card">
+                        <h3>Notes</h3>
+                        <p>Capture ideas and thoughts quickly.</p>
+                    </a>
+                </div>
+            </a>
+
+            <!-- Developer Tools -->
+            <a href="developer.html" class="category">
+                <h2>Developer Tools</h2>
+                <div class="tool-list">
+                    <a href="code-editor.html" class="tool-card">
+                        <h3>Code Editor</h3>
+                        <p>Edit and write code efficiently.</p>
+                    </a>
+                    <a href="debugger.html" class="tool-card">
+                        <h3>Debugger</h3>
+                        <p>Debug and test your code.</p>
+                    </a>
+                    <a href="version-control.html" class="tool-card">
+                        <h3>Version Control</h3>
+                        <p>Manage versions and collaborate with others.</p>
+                    </a>
+                </div>
+            </a>
+
+            <!-- Design Tools -->
+            <a href="design.html" class="category">
+                <h2>Design Tools</h2>
+                <div class="tool-list">
+                    <a href="graphic-editor.html" class="tool-card">
+                        <h3>Graphic Editor</h3>
+                        <p>Create stunning visuals and graphics.</p>
+                    </a>
+                    <a href="mockup-creator.html" class="tool-card">
+                        <h3>Mockup Creator</h3>
+                        <p>Design mockups and wireframes.</p>
+                    </a>
+                </div>
+            </a>
+
+            <!-- Analytics Tools -->
+            <a href="analytics.html" class="category">
+                <h2>Analytics Tools</h2>
+                <div class="tool-list">
+                    <a href="data-analysis.html" class="tool-card">
+                        <h3>Data Analysis</h3>
+                        <p>Analyze and interpret data.</p>
+                    </a>
+                    <a href="report-generator.html" class="tool-card">
+                        <h3>Report Generator</h3>
+                        <p>Generate reports for insights and trends.</p>
+                    </a>
+                </div>
+            </a>
+            
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Tool Hub | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT Decoder with Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        textarea, pre {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            resize: vertical;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>JWT Decoder with Validation</h2>
+    <textarea id="jwtInput" rows="4" placeholder="Paste your JWT here..."></textarea>
+    <button class="button" onclick="decodeJWT()">Decode JWT</button>
+    <div class="error" id="errorOutput"></div>
+
+    <div class="section" id="headerSection">
+        <h3>Header</h3>
+        <pre id="headerOutput"></pre>
+    </div>
+
+    <div class="section" id="payloadSection">
+        <h3>Payload</h3>
+        <pre id="payloadOutput"></pre>
+    </div>
+
+    <div class="section" id="signatureSection">
+        <h3>Signature</h3>
+        <pre id="signatureOutput"></pre>
+    </div>
+</div>
+
+<script>
+    function decodeBase64Url(base64Url) {
+        try {
+            let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            return atob(base64);
+        } catch (error) {
+            throw new Error("Invalid Base64Url encoding");
+        }
+    }
+
+    function isBase64Url(str) {
+        const base64UrlPattern = /^[A-Za-z0-9_-]+$/;
+        return base64UrlPattern.test(str);
+    }
+
+    function validateJWT(jwt) {
+        const parts = jwt.split('.');
+        if (parts.length !== 3) {
+            throw new Error("JWT must have three parts separated by dots (header, payload, signature).");
+        }
+        if (!isBase64Url(parts[0]) || !isBase64Url(parts[1]) || !isBase64Url(parts[2])) {
+            throw new Error("Each part of the JWT must be valid Base64Url encoding.");
+        }
+    }
+
+    function decodeJWT() {
+        const jwtInput = document.getElementById("jwtInput").value.trim();
+        const errorOutput = document.getElementById("errorOutput");
+        errorOutput.textContent = "";  // Clear any previous error
+
+        try {
+            validateJWT(jwtInput);
+
+            const parts = jwtInput.split('.');
+            const header = JSON.parse(decodeBase64Url(parts[0]));
+            const payload = JSON.parse(decodeBase64Url(parts[1]));
+            const signature = parts[2];
+
+            document.getElementById("headerOutput").textContent = JSON.stringify(header, null, 2);
+            document.getElementById("payloadOutput").textContent = JSON.stringify(payload, null, 2);
+            document.getElementById("signatureOutput").textContent = signature;
+        } catch (error) {
+            errorOutput.textContent = "Error: " + error.message;
+            console.error(error);
+            document.getElementById("headerOutput").textContent = "";
+            document.getElementById("payloadOutput").textContent = "";
+            document.getElementById("signatureOutput").textContent = "";
+        }
+    }
+</script>
+
+</body>
+</html>

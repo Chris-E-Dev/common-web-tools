@@ -1,0 +1,40 @@
+.json-editor {
+    width: 100%;
+    margin: 20px 0;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  button {
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  .nested {
+    padding-left: 20px;
+  }
+  
+  .collapse-toggle {
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
