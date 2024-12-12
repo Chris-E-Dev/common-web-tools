@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File to Base64 Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+            max-width: 90%;
+        }
+
+        .container h1 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .container textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+            font-family: monospace;
+        }
+
+        .container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .container button:hover {
+            background-color: #0056b3;
+        }
+
+        .container input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        .container .output {
+            font-size: 0.9rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>File & Base64 Converter</h1>
+
+        <label for="fileInput">Select a file to convert to Base64:</label>
+        <input type="file" id="fileInput" />
+        <button id="convertToBase64">Convert to Base64</button>
+        <textarea id="base64Output" placeholder="Base64 output"></textarea>
+
+        <textarea id="base64Input" placeholder="Enter Base64 to decode"></textarea>
+        <button id="convertToFile">Convert to File</button>
+        <div class="output" id="fileDownload"></div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const convertToBase64Btn = document.getElementById('convertToBase64');
+        const base64Output = document.getElementById('base64Output');
+
+        const base64Input = document.getElementById('base64Input');
+        const convertToFileBtn = document.getElementById('convertToFile');
+        const fileDownload = document.getElementById('fileDownload');
+
+        // Convert File to Base64
+        convertToBase64Btn.addEventListener('click', () => {
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select a file first.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                base64Output.value = reader.result.split(',')[1];
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Convert Base64 to File
+        convertToFileBtn.addEventListener('click', () => {
+            const base64 = base64Input.value;
+            if (!base64) {
+                alert('Please enter a Base64 string.');
+                return;
+            }
+
+            const byteCharacters = atob(base64);
+            const byteNumbers = new Array(byteCharacters.length).fill().map((_, i) => byteCharacters.charCodeAt(i));
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray]);
+
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'downloaded_file';
+            link.textContent = 'Download decoded file';
+
+            fileDownload.innerHTML = '';
+            fileDownload.appendChild(link);
+        });
+    </script>
+</body>
+</html>
