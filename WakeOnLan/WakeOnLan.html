@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAN Devices Monitor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #0078d4;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #0078d4;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LAN Devices Monitor</h1>
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>IP Address</th>
+                    <th>MAC Address</th>
+                    <th>Online Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="devices-table">
+                <!-- Device rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        let devices = [];
+
+        function fetchDevices() {
+            return fetch('devices.json') // Load devices from external JSON file
+                .then(response => response.json())
+                .then(data => {
+                    devices = data;
+                    renderDevices();
+                })
+                .catch(error => console.error("Failed to load devices: ", error));
+        }
+
+        function updateDeviceStatus() {
+            devices.forEach((device, index) => {
+                fetch(`/ping?ip=${device.ip}`) // Assume server handles /ping route
+                    .then(response => response.json())
+                    .then(data => {
+                        const statusCell = document.querySelector(`#device-${index} .status`);
+                        statusCell.textContent = data.online ? "Online" : "Offline";
+                        statusCell.style.color = data.online ? "green" : "red";
+                    })
+                    .catch(() => {
+                        const statusCell = document.querySelector(`#device-${index} .status`);
+                        statusCell.textContent = "Offline";
+                        statusCell.style.color = "red";
+                    });
+            });
+        }
+
+        function sendWakeOnLan(mac) {
+            fetch(`/wake?mac=${mac}`, { method: 'POST' }) // Assume server handles /wake route
+                .then(response => response.json())
+                .then(data => alert(data.message || "Wake-on-LAN sent!"))
+                .catch(() => alert("Failed to send Wake-on-LAN."));
+        }
+
+        function renderDevices() {
+            const tableBody = document.getElementById("devices-table");
+            tableBody.innerHTML = "";
+
+            devices.forEach((device, index) => {
+                const row = document.createElement("tr");
+                row.id = `device-${index}`;
+
+                row.innerHTML = `
+                    <td>${device.name}</td>
+                    <td>${device.ip}</td>
+                    <td>${device.mac}</td>
+                    <td class="status">Unknown</td>
+                    <td><button onclick="sendWakeOnLan('${device.mac}')">Wake</button></td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+
+            updateDeviceStatus();
+        }
+
+        fetchDevices();
+        setInterval(updateDeviceStatus, 10000); // Update every 10 seconds
+    </script>
+</body>
+</html>
