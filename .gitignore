@@ -1,0 +1,11 @@
+# Build and Release Folders
+node_modules/
+dist/
+[Oo]bj/
+[Bb]in/
+
+# Other files and folders
+.settings/
+
+# Json config files
+*.json
