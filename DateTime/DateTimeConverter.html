@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unix Timestamp Converter</title>
-  <link rel="stylesheet" href="DateTimeConverter.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date & Unix Timestamp Converter</title>
 </head>
 <body>
-  <div class="container">
-    <h1>Unix Timestamp Converter</h1>
-    <p>Enter a Unix timestamp in milliseconds to see the local datetime.</p>
-    <div class="input-group">
-      <input type="text" id="timestamp" placeholder="Enter Unix timestamp (ms)">
-      <button id="convertButton">Convert</button>
+    <div class="container">
+        <h1>Date & Unix Timestamp Converter</h1>
+        <p>Enter a Unix timestamp in milliseconds or a date to see the local datetime.</p>
+        
+        <div class="mb-4">
+            <label for="dateInput">Date to Unix Timestamp</label>
+            <div class="flex">
+                <input type="datetime-local" id="dateInput" />
+                <button id="convertToUnix" class="blue-button">Convert</button>
+            </div>
+            <p id="unixOutput" class="output"></p>
+        </div>
+
+        <div>
+            <label for="unixInput">Unix Timestamp to Date</label>
+            <div class="flex">
+                <input type="number" id="unixInput" placeholder="Enter Unix Timestamp" />
+                <button id="convertToDate" class="green-button">Convert</button>
+            </div>
+            <p id="dateOutput" class="output"></p>
+            <p id="dateOutputLocal" class="output"></p>
+        </div>
     </div>
-    <p id="result" class="result"></p>
-  </div>
-  <script src="DateTimeConverter.js"></script>
+
+    <script src="DateTimeConverter.js"></script>
+
 </body>
 </html>
